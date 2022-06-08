@@ -15,12 +15,6 @@ export default defineNuxtConfig({
       },
     ],
   ],
-  io: {
-    sockets: [{
-      name: 'main',
-      url: process.env.URL,
-    }],
-  },
   publicRuntimeConfig: {
     firebaseApiKey: process.env.FIREBASE_API_KEY,
   },
