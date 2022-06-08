@@ -6,10 +6,8 @@ const router = useRouter()
 
 onMounted(() => {
   const team = fbRef($fbDatabase, 'teams/lol')
-  onValue(team, (snapshot) => {
-    if (snapshot.exists())
-      console.log(snapshot)
-  })
+  // onValue(team, (snapshot) => {
+  //   if (snapshot.exists() )})
 })
 
 function goToSprintPoker() {
