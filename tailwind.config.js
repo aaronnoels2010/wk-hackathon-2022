@@ -1,4 +1,10 @@
 const colors = require('./node_modules/tailwindcss/colors')
+delete colors.lightBlue
+delete colors.warmGray
+delete colors.trueGray
+delete colors.coolGray
+delete colors.blueGray
+
 const colorSaveList = []
 const extendeColors = {}
 
@@ -6,6 +12,7 @@ for (const key in colors) {
   extendeColors[key] = colors[key];
 
   [100, 200, 300, 400, 500, 600, 700, 800, 900].forEach((colorValue) => {
+    colorSaveList.push(`shadow-${key}-${colorValue}`)
     colorSaveList.push(`text-${key}-${colorValue}`)
     colorSaveList.push(`bg-${key}-${colorValue}`)
     colorSaveList.push(`hover:bg-${key}-${colorValue}`)

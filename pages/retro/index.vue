@@ -1,5 +1,12 @@
 <script setup lang="ts">
+import BaseCard from '~/components/base/BaseCard.vue';
+
 const { data } = useFetch('/api/retro/layouts')
+
+const goToRetroLayout = (layout: string) => {
+  const router = useRouter()
+  router.push(`/retro/${layout}`)
+}
 </script>
 
 <template>
@@ -8,22 +15,12 @@ const { data } = useFetch('/api/retro/layouts')
       <Title>Retro</Title>
     </Head>
     <div class="flex flex-grow justify-center items-center">
-      <div class="mr-8 mt-4 glass-container h-48 w-32 flex flex-wrap justify-center items-center hover:animate-bounce cursor-pointer" v-for="(layout, index) in data.layouts" :key="index">
+      <BaseCard class="mr-12 mt-4 h-56 w-40 hover:animate-bounce" v-for="(layout, index) in data.layouts" :key="index" @click="() => goToRetroLayout(layout)">
         <img v-if="layout === 'panda'" src="~/assets/img/retro/panda.svg">
         <img v-else-if="layout === 'star-wars'" src="~/assets/img/retro/star-wars.jpg">
         <img v-else-if="layout === 'elvis'" src="~/assets/img/retro/elvis.png">
         <img v-else-if="layout === 'the-island'" src="~/assets/img/retro/eiland.jpeg">
-      </div>
+      </BaseCard>
     </div>
   </div>
 </template>
-
-<style>
-.glass-container {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4.5px);
-  -webkit-backdrop-filter: blur(4.5px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-</style>

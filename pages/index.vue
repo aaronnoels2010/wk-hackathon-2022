@@ -27,12 +27,12 @@ function goToRetro() {
     </Head>
     <div class="flex">
       <div class="m-4">
-        <BaseCard @click="goToRetro">
+        <BaseCard class="min-w-[240px] min-h-[360px] hover:animate-pulse text-2xl" @click="goToRetro">
           <h3>Retro</h3>
         </BaseCard>
       </div>
       <div class="m-4">
-        <BaseCard @click="goToSprintPoker">
+        <BaseCard class="min-w-[240px] min-h-[360px] hover:animate-pulse text-2xl" @click="goToSprintPoker">
           <h3>Sprint Poker</h3>
         </BaseCard>
       </div>
