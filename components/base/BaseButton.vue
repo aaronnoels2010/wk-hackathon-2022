@@ -24,12 +24,12 @@ const color = props.color ? props.color : useColor()
       rounded-md
       shadow-sm
       text-white
-      bg-${color}-600
-      hover:bg-${color}-700
+      bg-${color}-500
+      hover:bg-${color}-600
       focus:outline-none
       focus:ring-2
       focus:ring-offset-2
-      focus:ring-${color}-500
+      focus:ring-${color}-600
     `"
   >
     <slot />

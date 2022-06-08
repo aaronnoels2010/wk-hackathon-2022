@@ -14,7 +14,7 @@ import HeroiconsOutlineHome from '~icons/heroicons-outline/home'
     </div>
     <div class="text-gray-600 dark:text-white">
       <span class="text-2xl">Witty</span>
-      <span class="text-yellow-600" />
+      <span class="text-amber-500" />
     </div>
     <div class="flex justify-center">
       <DarkToggle />

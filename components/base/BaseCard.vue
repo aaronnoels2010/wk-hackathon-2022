@@ -13,13 +13,13 @@ const color = useColor()
       rounded-md
       shadow-lg
       border-2
-      border-${color}-600
+      border-${color}-500
       text-gray-600
-      hover:border-${color}-700
+      hover:border-${color}-600
       focus:outline-none
       focus:ring-2
       focus:ring-offset-2
-      focus:ring-${color}-500
+      focus:ring-${color}-600
       dark:text-white
       min-w-[320px]
       max-w-xl
