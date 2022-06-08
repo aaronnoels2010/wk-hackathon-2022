@@ -4,6 +4,7 @@ import BaseInput from '~/components/base/BaseInput.vue'
 import BaseOutlineButton from '~/components/base/BaseOutlineButton.vue'
 import { useUser } from '~/composables/settings'
 import AvatarIcon from '~icons/carbon/user-avatar'
+
 const openProfileAvatarDialog = useState('profileAvatarDialog', () => false)
 const { user, setUser } = useUser()
 const userName = ref('')
@@ -21,7 +22,7 @@ const handleSave = () => {
 <template>
   <div class="flex justify-center items-center">
     <AvatarIcon v-if="!user" class="w-6 h-6 text-gray-600 dark:text-gray-300" @click="() => setOpenProfileAvatarDialog(true)" />
-    <span class="text-gray-600 dark:text-gray-300" v-if="user" @click="() => setOpenProfileAvatarDialog(true)">Hey, {{ user }}</span>
+    <span v-if="user" class="text-gray-600 dark:text-gray-300" @click="() => setOpenProfileAvatarDialog(true)">Hey, {{ user }}</span>
     <div v-if="openProfileAvatarDialog" class="relative z-50" @click="() => setOpenProfileAvatarDialog(false)">
       <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div class="fixed inset-0 flex items-center justify-center p-4">
@@ -31,9 +32,9 @@ const handleSave = () => {
           </h3>
 
           <BaseInput
-            color="gray"
             id="input"
             v-model="userName"
+            color="gray"
             class="text-center"
             placeholder="Username"
             type="text"
