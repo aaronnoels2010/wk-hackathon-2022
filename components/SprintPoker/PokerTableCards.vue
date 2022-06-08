@@ -10,9 +10,9 @@ const color = useColor()
 <template>
   <div class="flex flex-wrap p-4">
     <div v-for="(point, index) of data.points" :key="index" class="mr-4 mt-4 glass-container h-24 w-16 flex flex-wrap justify-center items-center hover:animate-bounce">
-      <CoffeeIcon v-if="point === 'coffee'" :class="`w-6 h-6 text-${color}-600`"></CoffeeIcon>
-      <InfinityIcon v-else-if="point === 'infinity'" :class="`w-6 h-6 text-${color}-600`"/>
-      <QuestionIcon v-else-if="point === 'unknown'" :class="`w-6 h-6 text-${color}-600`"/>
+      <CoffeeIcon v-if="point === 'coffee'" :class="`w-6 h-6 text-${color}-600`" />
+      <InfinityIcon v-else-if="point === 'infinity'" :class="`w-6 h-6 text-${color}-600`" />
+      <QuestionIcon v-else-if="point === 'unknown'" :class="`w-6 h-6 text-${color}-600`" />
       <span v-else :class="`text-${color}-600`">{{ point }}</span>
     </div>
   </div>
