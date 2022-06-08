@@ -11,7 +11,7 @@ const enterTeamChannel = (teamName) => {
       <Title>Sprint Poker</Title>
     </Head>
     <BaseCard>
-      <InputEntry placeholder="Team name" :handleSubmit="enterTeamChannel"></InputEntry>
+      <InputEntry placeholder="Room name" :handle-submit="enterTeamChannel" />
     </BaseCard>
   </div>
 </template>
