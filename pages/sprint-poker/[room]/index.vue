@@ -1,11 +1,21 @@
 <script setup>
+import { useRoute } from 'nuxt/app'
 import { onMounted } from 'vue'
+import { getRoom } from '~/composables/firebase'
 import PokerTable from '~/components/SprintPoker/PokerTable'
 import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
+import { useSprintPokerRoom } from '~/composables/sprint-poker'
 
 const route = useRoute()
-const ctx = useNuxtApp()
-const teamName = route.params.team
+const roomId = route.params.room
+
+const sprintPokerRoom = useSprintPokerRoom()
+
+onMounted(() => {
+  getRoom(roomId, (room) => {
+    sprintPokerRoom.value = room
+  })
+})
 </script>
 
 <template>
