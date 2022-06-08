@@ -23,6 +23,7 @@ const color = useColor()
        dark:text-white
        min-w-[320px]
        max-w-xl
+       hover:cursor-pointer
     `"
   >
     <slot />

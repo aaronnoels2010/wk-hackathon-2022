@@ -14,7 +14,6 @@ export default defineNuxtConfig({
         prefix: false,
       },
     ],
-    'nuxt-socket-io',
   ],
   io: {
     sockets: [{
