@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import PokerTable from '~/components/SprintPoker/PokerTable'
+import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
 
 let socket = null
 const route = useRoute()
@@ -31,7 +32,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex justify-center items-center">
-    <PokerTable />
+  <div class="flex flex-col">
+    <div class="flex flex-col flex-grow justify-center items-center">
+      <PokerTable />
+    </div>
+    <div class="pb-8">
+      <PokerTableCards />
+    </div>
   </div>
 </template>

@@ -1,6 +1,5 @@
-<script setup>
+<script setup lang="ts">
 import HeroiconsOutlineHome from '~icons/heroicons-outline/home'
-import ProfileAvatar from './ProfileAvatar';
 </script>
 
 <template>

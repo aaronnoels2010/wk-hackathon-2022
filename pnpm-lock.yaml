@@ -3,6 +3,8 @@ lockfileVersion: 5.4
 specifiers:
   '@antfu/eslint-config': ^0.24.3
   '@headlessui/vue': ^1.6.4
+  '@iconify-json/akar-icons': ^1.1.5
+  '@iconify-json/ant-design': ^1.1.2
   '@iconify-json/carbon': ^1.1.5
   '@iconify-json/heroicons-outline': ^1.1.1
   '@iconify-json/heroicons-solid': ^1.1.1
@@ -38,6 +40,8 @@ dependencies:
 devDependencies:
   '@antfu/eslint-config': 0.24.3_ud6rd4xtew5bv4yhvkvu24pzm4
   '@headlessui/vue': 1.6.4_vue@3.2.36
+  '@iconify-json/akar-icons': 1.1.5
+  '@iconify-json/ant-design': 1.1.2
   '@iconify-json/carbon': 1.1.5
   '@iconify-json/heroicons-outline': 1.1.1
   '@iconify-json/heroicons-solid': 1.1.1
@@ -525,6 +529,18 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-json/akar-icons/1.1.5:
+    resolution: {integrity: sha512-/lfL7G3HyWrpC+GKvVGtEg5mPCOYXcSdawql+43MfpCswPeTXgzUWCxfcKb+dWSMbo/9mPn12Y20PGtW1SBD4w==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
+  /@iconify-json/ant-design/1.1.2:
+    resolution: {integrity: sha512-LXb+rG9duYAm0MOhb6G335CXQ2RhGiubuDdjHeDvrZMijHC3W7XIMDUJbtyF3Shji5jF+EXiaZPzLxcAudBdKw==}
+    dependencies:
+      '@iconify/types': 1.1.0
     dev: true
 
   /@iconify-json/carbon/1.1.5:

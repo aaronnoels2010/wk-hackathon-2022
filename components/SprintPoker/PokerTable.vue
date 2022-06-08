@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import TableSeat from '~/components/SprintPoker/TableSeat'
+</script>
+
 <template>
   <div class="flex">
     <div class="flex flex-col items-center justify-center">
@@ -21,10 +25,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import TableSeat from './TableSeat';
-export default {
-  components: {TableSeat}
-}
-</script>
