@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-export const useColor = () => useState<string>('color', () => 'yellow')
+export const useColor = () => useState<string>('color', () => 'amber')
 
 export function useUser() {
   const user: Ref<string> = useState<string>('user', () => '')
