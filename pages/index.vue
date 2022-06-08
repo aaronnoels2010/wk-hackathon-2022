@@ -1,16 +1,5 @@
 <script setup>
-import { ref as fbRef, onValue } from 'firebase/database'
-const { $fbDatabase } = useNuxtApp()
-
 const router = useRouter()
-
-onMounted(() => {
-  const team = fbRef($fbDatabase, 'teams/lol')
-  onValue(team, (snapshot) => {
-    if (snapshot.exists())
-      console.log(snapshot)
-  })
-})
 
 function goToSprintPoker() {
   router.push('/sprint-poker')

@@ -1,7 +1,12 @@
 <script setup>
+import { useRouter } from 'nuxt/app'
+import { writeRoom } from '~/composables/firebase'
+import Room from '~/models/Room'
+
 const router = useRouter()
-const enterTeamChannel = (teamName) => {
-  router.push(`/sprint-poker/${teamName}`)
+
+const enterTeamChannel = (roomName) => {
+  writeRoom(new Room(roomName)).then(response => router.push(`/sprint-poker/${roomName}`))
 }
 </script>
 
@@ -11,7 +16,7 @@ const enterTeamChannel = (teamName) => {
       <Title>Sprint Poker</Title>
     </Head>
     <BaseCard>
-      <InputEntry placeholder="Team name" :handleSubmit="enterTeamChannel"></InputEntry>
+      <InputEntry placeholder="Room name" :handle-submit="enterTeamChannel" />
     </BaseCard>
   </div>
 </template>

@@ -1,33 +1,20 @@
 <script setup>
+import { useRoute } from 'nuxt/app'
 import { onMounted } from 'vue'
+import { getRoom } from '~/composables/firebase'
 import PokerTable from '~/components/SprintPoker/PokerTable'
 import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
+import { useSprintPokerRoom } from '~/composables/sprint-poker'
 
-let socket = null
 const route = useRoute()
-const ctx = useNuxtApp()
-const teamName = route.params.team
+const roomId = route.params.room
 
-const newMember = () => {
-  socket.emit('newUserJoined', {
-    hello: 'world',
-  }, (resp) => {
-    // TODO add logic
-  })
-}
+const sprintPokerRoom = useSprintPokerRoom()
 
 onMounted(() => {
-  socket = ctx.$nuxtSocket({
-    name: 'main',
-    channel: '/index',
-    withCredentials: false,
+  getRoom(roomId, (room) => {
+    sprintPokerRoom.value = room
   })
-  /* Listen for events: */
-  socket
-    .on('newUserJoined', (msg, cb) => {
-      // TODO add logic
-    })
-  newMember()
 })
 </script>
 
