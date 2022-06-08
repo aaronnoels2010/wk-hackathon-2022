@@ -15,12 +15,6 @@ export default defineNuxtConfig({
       },
     ],
   ],
-  io: {
-    sockets: [{
-      name: 'main',
-      url: process.env.URL,
-    }],
-  },
   components: {
     global: true,
     dirs: [

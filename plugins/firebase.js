@@ -20,7 +20,7 @@ export default defineNuxtPlugin(() => {
   }
 
   const app = initializeApp(firebaseConfig)
-  console.log(firebaseConfig)
+
   return {
     provide: {
       firebase: app,
