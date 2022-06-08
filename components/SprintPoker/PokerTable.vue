@@ -21,7 +21,7 @@ const users = [
         <TableSeat :name="users[2].name" :score="users[2].score" />
         <TableSeat :name="users[3].name" :score="users[3].score" />
       </div>
-      <div class="m-4 min-w-[380px] h-[140px] bg-gray-300 dark:bg-gray-700 rounded-full" />
+      <div class="m-4 min-w-[380px] h-[140px] bg-gray-200 dark:bg-gray-700 rounded-full" />
       <div class="flex justify-between mx-12">
         <TableSeat :name="users[4].name" :score="users[4].score" />
         <TableSeat />
