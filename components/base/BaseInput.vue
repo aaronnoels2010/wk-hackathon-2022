@@ -26,5 +26,5 @@ const color = props.color ? props.color : useColor()
     block w-full max-w-xs mx-auto shadow-sm border-gray-300 focus:ring-${color}-500 focus:border-${color}-500 sm:text-sm rounded-md text-gray-700`"
     :value="props.modelValue"
     @input="updateModalValue"
-  />
+  >
 </template>

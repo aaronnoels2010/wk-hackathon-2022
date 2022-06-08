@@ -38,9 +38,7 @@ watchEffect(() => {
     <Counter />
 
     <div>
-      <BaseNuxtLink
-        to="/"
-      >
+      <BaseNuxtLink to="/">
         Back
       </BaseNuxtLink>
     </div>
