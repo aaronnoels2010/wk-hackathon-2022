@@ -35,4 +35,5 @@
         "vite",
         "vueuse"
     ],
+    "nuxt.isNuxtApp": true,
 }

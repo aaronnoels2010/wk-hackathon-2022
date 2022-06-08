@@ -37,7 +37,7 @@ const handleSave = () => {
             class="text-center"
             placeholder="Username"
             type="text"
-            autocomplete="false"
+            autocomplete="false" @click.stop="() => {}"
           />
 
           <div class="flex justify-end mt-4">
