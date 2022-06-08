@@ -1,8 +1,8 @@
 <script setup lang="ts">
 interface Props {
-  name: string
-  score: number
-  reverse: boolean
+  name?: string
+  score?: number
+  reverse?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
