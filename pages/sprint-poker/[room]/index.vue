@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRoute } from 'nuxt/app'
 import { onMounted, onUnmounted } from 'vue'
 import BaseButton from '~/components/base/BaseButton'
 import Timer from '~/components/Timer.vue'
