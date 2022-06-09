@@ -65,9 +65,12 @@ export default class Room {
     this.timeInSecondsLeft = 30
   }
 
-  get medianScore() {
-    const median = [...this.players].filter(p => !isNaN(+p.score)).map(p => +p.score).reduce((prev, ele) => prev + ele, 0) / this.players.length
-    return isNaN(median) ? 0 : Math.round(median).toFixed(0)
+  get averageScore() {
+    const playersWhoVoted = [...this.players].filter(p => p.score && !isNaN(+p.score))
+    const average = playersWhoVoted.length > 0
+      ? playersWhoVoted.map(p => +p.score).reduce((prev, ele) => prev + ele, 0) / playersWhoVoted.length
+      : 0
+    return isNaN(average) ? 0 : Math.round(average).toFixed(0)
   }
 
   static FromJSON(object: any): Room {

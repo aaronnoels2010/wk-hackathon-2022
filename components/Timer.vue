@@ -26,6 +26,7 @@ const startTimer = () => {
   const countDownInterval = setInterval(() => {
     if (!props.isStarted) {
       clearInterval(countDownInterval)
+      emit('resetTimer')
       return
     }
 

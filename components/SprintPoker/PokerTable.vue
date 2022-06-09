@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
         <TableSeat v-if="room.players && room.players.length > 3" :player="room.players[3]" />
       </div>
       <div class="m-4 flex justify-center items-center min-w-[380px] h-[140px] bg-gray-200 dark:bg-gray-700 rounded-full">
-        <span class="text-3xl" :class="{ 'blur-lg': room.isHidden}">{{ room.medianScore }}</span>
+        <span class="text-3xl" :class="{ 'blur-lg': room.isHidden }">{{ room.averageScore }}</span>
       </div>
       <div class="flex justify-between mx-12">
         <TableSeat v-if="room.players && room.players.length > 4" :player="room.players[4]" />
