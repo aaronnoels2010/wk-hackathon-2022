@@ -7,7 +7,6 @@ import { useSettingsStore } from '~/stores/settings'
 import { writeRoom } from '~/composables/firebase'
 
 const { data } = await useFetch('/api/sprint-poker/points')
-
 const { submitScore, room } = useSettingsStore()
 
 const handleCardClick = (point: string) => {

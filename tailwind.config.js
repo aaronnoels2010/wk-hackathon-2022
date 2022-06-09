@@ -6,10 +6,10 @@ delete colors.coolGray
 delete colors.blueGray
 
 const colorSaveList = []
-const extendeColors = {}
+const extendedColors = {}
 
 for (const key in colors) {
-  extendeColors[key] = colors[key];
+  extendedColors[key] = colors[key];
 
   [100, 200, 300, 400, 500, 600, 700, 800, 900].forEach((colorValue) => {
     colorSaveList.push(`shadow-${key}-${colorValue}`)

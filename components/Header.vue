@@ -8,7 +8,7 @@ const color = computed(() => useColorMode())
 <template>
   <div class="px-8 py-4 flex justify-between">
     <NuxtLink to="/" class="flex items-center">
-      <img class="w-10 h-10 inline-block" src="/meerkat.png">
+      <img class="w-8 h-8 inline-block" src="/meerkat.png">
       <h3 class="ml-4 font-bold text-2xl">
         <span v-if="room">{{ room.name }}</span>
         <span v-else-if="color.preference === 'dark'">Darky</span>

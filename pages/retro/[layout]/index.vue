@@ -10,9 +10,9 @@ const layout = route.params.layout
 
 <template>
   <div class="flex flex-grow">
-    <PandaRetroLayout v-if="layout === 'panda'"></PandaRetroLayout>
-    <StarWarsRetroLayout v-if="layout === 'star-wars'"></StarWarsRetroLayout>
-    <TheIslandRetroLayout v-if="layout === 'the-island'"></TheIslandRetroLayout>
-    <ElvisRetroLayout v-if="layout === 'elvis'"></ElvisRetroLayout>
+    <PandaRetroLayout v-if="layout === 'panda'" />
+    <StarWarsRetroLayout v-if="layout === 'star-wars'" />
+    <TheIslandRetroLayout v-if="layout === 'the-island'" />
+    <ElvisRetroLayout v-if="layout === 'elvis'" />
   </div>
 </template>
