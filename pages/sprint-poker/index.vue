@@ -1,10 +1,10 @@
 <script setup lang="ts">
-// import { useRouter } from 'nuxt/app'
-// // import { writeRoom } from '~/composables/firebase'
+import { useRouter } from 'nuxt/app'
+import { writeRoom } from '~/composables/firebase'
 // import { useSettingsStore } from '~/stores/settings'
-// import Room from '~/models/Room'
+import Room from '~/models/Room'
 
-// const router = useRouter()
+const router = useRouter()
 // const { setRoom } = useSettingsStore()
 
 const enterTeamChannel = (roomName) => {
