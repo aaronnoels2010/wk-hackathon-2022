@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { useModalStore } from '../stores/modal'
-import { useSettingsStore } from '../stores/settings'
 import RetroCard from './RetroCard.vue'
+import { useModalStore } from '~/stores/modal'
 import BaseButton from '~/components/base/BaseButton.vue'
 import PlusIcon from '~icons/akar-icons/plus'
 
 interface Props {
   zoneTitle?: string
-  showModal: boolean
+  showModal?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   zoneTitle: '',
   showModal: false,
 })
 
-function showAddCardModal(value: boolean) {
-  showModal = value
+const { openAddCardModal, setStateAddCardModal } = useModalStore()
+
+const updateOpenAddCardDialog = (state: boolean) => {
+  setStateAddCardModal(state)
+}
+
+const handleSave = () => {
+  updateOpenAddCardDialog(false)
 }
 </script>
 
@@ -27,42 +32,35 @@ function showAddCardModal(value: boolean) {
     <div class="flex flex-wrap flex-grow items-start">
       <RetroCard retro-text="Ik vond het heel fijn" />
       <RetroCard retro-text="Ik vond het helemaal niet leuk" />
-      <RetroCard retro-text="blablablablablabla" />
-      <RetroCard retro-text="blablablab lab la blabla blablab lablablablabl blablablablabla" />
-      <RetroCard retro-text="blablablab lab la blabla blablab lablablablabl blablablablabla" />
-      <RetroCard retro-text="blablablablablabla" />
-      <RetroCard retro-text="blablablablablabla" />
     </div>
 
     <div class="flex justify-end">
-      <BaseButton @click="() => showAddCardModal(true)">
+      <BaseButton @click="() => updateOpenAddCardDialog(true)">
         <PlusIcon />
       </BaseButton>
     </div>
 
-    <div v-if="showModal" class="relative z-50" @click="() => showAddCardModal(false)">
+    <div v-if="openAddCardModal" class="relative z-50">
       <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div class="fixed inset-0 flex items-center justify-center p-4">
         <div class="p-4 w-full max-w-sm rounded-2xl bg-white dark:bg-gray-800">
           <h3 class="text-3xl mb-4 text-center text-slate-600 dark:text-slate-300">
-            User
+            Message
           </h3>
 
-          <BaseInput
-            id="input"
-            color="gray"
-            class="text-center"
-            placeholder="Username"
-            type="text"
-            autocomplete="false"
+          <textarea
+            id="message"
+            rows="4"
+            class="block p-3 w-full text-sm text-gray-900 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            placeholder="Your message..."
           />
 
           <div class="flex justify-end mt-4">
-            <BaseOutlineButton color="red" class="disabled:cursor-not-allowed mr-4" @click="showAddCardModal(false)">
+            <BaseOutlineButton color="red" class="disabled:cursor-not-allowed mr-4" @click="updateOpenAddCardDialog(false)">
               Cancel
             </BaseOutlineButton>
             <BaseButton color="green" class="disabled:cursor-not-allowed">
-              Save
+              Add
             </BaseButton>
           </div>
         </div>
@@ -70,4 +68,3 @@ function showAddCardModal(value: boolean) {
     </div>
   </div>
 </template>
-

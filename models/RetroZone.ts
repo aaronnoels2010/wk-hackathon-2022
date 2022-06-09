@@ -1,4 +1,4 @@
-export default class Retro {
+export default class RetroZone {
   index: number
   cards: string[]
 
