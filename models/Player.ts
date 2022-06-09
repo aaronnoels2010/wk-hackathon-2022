@@ -3,7 +3,7 @@ export default class Player {
   name: string
   score: string
 
-  constructor(name: string, id: string | undefined = undefined, score: string = '') {
+  constructor(name: string, id: string | undefined = undefined, score = '') {
     this.id = id ?? `${Date.now()}${Math.floor(Math.random() * 1000)}`
     this.name = name
     this.score = score

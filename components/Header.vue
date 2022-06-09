@@ -11,7 +11,7 @@ const color = computed(() => useColorMode())
       <img class="w-8 h-8 inline-block" src="/meerkat.png">
       <h3 class="ml-4 font-bold text-2xl">
         <span v-if="room">{{ room.name }}</span>
-        <span v-else-if="color.preference === 'dark'">Darky</span>
+        <span v-else-if="color.preference === 'dark'">Blacky</span>
         <span v-else>Witty</span>
       </h3>
     </NuxtLink>
