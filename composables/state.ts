@@ -6,4 +6,3 @@ export function useLocalState(initialState: any) {
 
   return [readonly(state), setState]
 }
-
