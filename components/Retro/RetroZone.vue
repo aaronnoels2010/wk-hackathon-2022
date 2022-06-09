@@ -31,13 +31,13 @@ const handleSave = () => {
     <h3 v-if="zoneTitle" class="text-xl text-gray-800">
       {{ zoneTitle }}
     </h3>
-    <div class="flex flex-wrap flex-grow items-start">
+    <div class="flex flex-wrap flex-shrink items-start">
       <div v-for="(message, index) of messages" :key="index">
         <RetroCard :retro-text="message" />
       </div>
     </div>
 
-    <div class="flex justify-end">
+    <div class="flex flex-grow justify-end items-end">
       <BaseButton @click="() => updateOpenAddCardDialog(true)">
         <PlusIcon />
       </BaseButton>
