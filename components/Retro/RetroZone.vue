@@ -4,15 +4,17 @@ import { useModalStore } from '~/stores/modal'
 import BaseButton from '~/components/base/BaseButton.vue'
 import PlusIcon from '~icons/akar-icons/plus'
 
-interface Props {
-  zoneTitle?: string
-  showModal?: boolean
-}
 const props = withDefaults(defineProps<Props>(), {
+  messages: new Array<string>(),
   zoneTitle: '',
   showModal: false,
 })
 
+interface Props {
+  messages: string[]
+  zoneTitle?: string
+  showModal?: boolean
+}
 const { openAddCardModal, setStateAddCardModal } = useModalStore()
 
 const updateOpenAddCardDialog = (state: boolean) => {
@@ -30,8 +32,9 @@ const handleSave = () => {
       {{ zoneTitle }}
     </h3>
     <div class="flex flex-wrap flex-grow items-start">
-      <RetroCard retro-text="Ik vond het heel fijn" />
-      <RetroCard retro-text="Ik vond het helemaal niet leuk" />
+      <div v-for="(message, index) of messages" :key="index">
+        <RetroCard :retro-text="message" />
+      </div>
     </div>
 
     <div class="flex justify-end">

@@ -3,3 +3,4 @@ export default defineEventHandler(() => {
     layouts: ['panda', 'star-wars', 'elvis', 'the-island'],
   }
 })
+
