@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useNuxtApp } from 'nuxt/app'
 import BaseButton from '~/components/base/BaseButton.vue'
 import BaseInput from '~/components/base/BaseInput.vue'
 import BaseOutlineButton from '~/components/base/BaseOutlineButton.vue'
@@ -8,14 +7,13 @@ import { useSettingsStore } from '~/stores/settings'
 import AvatarIcon from '~icons/carbon/user-avatar'
 import { writeRoom } from '~/composables/firebase'
 
-const { $pinia } = useNuxtApp()
-const { userName, room, setUserName } = useSettingsStore($pinia)
-const { openProfileModal, setStateProfileModal } = useModalStore($pinia)
+const { userName, room, setUserName } = useSettingsStore()
+const { openProfileModal, setStateProfileModal } = useModalStore()
 
 const localUserName = ref('')
 
 const updateOpenProfileAvatarDialog = (state: boolean) => {
-  if (!userName.value && !state)
+  if (!userName?.value && !state)
     return
 
   setStateProfileModal(state)
