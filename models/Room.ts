@@ -43,7 +43,6 @@ export default class Room {
   nextTick() {
     if (this.timeInSecondsLeft > 0) {
       this.isHidden = true
-      this.timerIsStarted = true
       this.timeInSecondsLeft -= 1
     }
   }
@@ -54,6 +53,10 @@ export default class Room {
 
   incrementTimer() {
     this.timeInSecondsLeft += 1
+  }
+
+  startTimer() {
+    this.timerIsStarted = true
   }
 
   resetTimer() {

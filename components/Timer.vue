@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<Props>(), {
   inSeconds: 30,
 })
 
-const emit = defineEmits(['nextTick', 'resetTimer', 'increment', 'decrement'])
+const emit = defineEmits(['nextTick', 'resetTimer', 'startTimer', 'increment', 'decrement'])
 
 interface Props {
   isStarted: boolean
@@ -21,7 +21,14 @@ const startTimer = () => {
   if (props.isStarted)
     return
 
+  emit('startTimer')
+
   const countDownInterval = setInterval(() => {
+    if (!props.isStarted) {
+      clearInterval(countDownInterval)
+      return
+    }
+
     emit('nextTick', props.inSeconds)
     if (props.inSeconds === 0) {
       clearInterval(countDownInterval)

@@ -9,12 +9,13 @@ import QuestionIcon from '~icons/akar-icons/question'
 const props = withDefaults(defineProps<Props>(), {
   player: undefined,
 })
-const { room } = useSettingsStore()
+const { room, player: playerStore } = useSettingsStore()
 
 interface Props {
   player: Player | undefined
 }
 
+console.log(props.player)
 const deletePlayer = () => {
   if (!room || !room.value)
     return
@@ -28,7 +29,7 @@ const deletePlayer = () => {
   <div v-if="player" class="flex flex-col items-center" @dblclick.stop="deletePlayer">
     <span>{{ player.name }}</span>
     <div class="w-[60px] h-[60px] bg-gray-200 dark:bg-gray-700 rounded-full flex justify-center items-center">
-      <div :class="{ 'blur-lg': room.isHidden }">
+      <div :class="{ 'blur-lg': room.isHidden && !(playerStore?.id === player.id) }">
         <CoffeeIcon v-if="player.score === 'coffee'" class="text-3xl dark:text-white" />
         <InfinityIcon v-else-if="player.score === 'infinity'" class="text-3xl dark:text-white" />
         <QuestionIcon v-else-if="player.score === 'unknown'" class="text-3xl dark:text-white" />
