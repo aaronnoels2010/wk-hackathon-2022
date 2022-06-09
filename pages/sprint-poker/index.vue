@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter } from 'nuxt/app'
+import { useNuxtApp, useRouter } from 'nuxt/app'
 import { writeRoom } from '~/composables/firebase'
 import { useSettingsStore } from '~/stores/settings.ts'
 import Room from '~/models/Room'
@@ -11,7 +11,7 @@ const { setRoom } = useSettingsStore($pinia)
 const enterTeamChannel = (roomName) => {
   const newRoom = new Room(roomName)
   setRoom(newRoom)
-  writeRoom(newRoom).then(response => router.push(`/sprint-poker/${newRoom.id}`))
+  writeRoom(newRoom).then(() => router.push(`/sprint-poker/${newRoom.id}`))
 }
 </script>
 

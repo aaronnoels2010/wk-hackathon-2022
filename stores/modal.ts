@@ -1,17 +1,16 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useModalStore = defineStore('modal', () => {
-  const openProfileModal = ref(false)
+  const _openProfileModal = ref(false)
 
-  const openProfileModalComputed = computed(() => openProfileModal)
+  const openProfileModal = computed(() => _openProfileModal)
 
   function setStateProfileModal(state: boolean) {
-    openProfileModal.value = state
+    _openProfileModal.value = state
   }
 
   return {
     openProfileModal,
-    openProfileModalComputed,
     setStateProfileModal,
   }
 })

@@ -1,12 +1,20 @@
 export default class Player {
   id: string
   name: string
-  score: string | undefined
+  score: string
 
-  constructor(name: string, id: string | undefined = undefined, score: string | undefined = undefined) {
+  constructor(name: string, id: string | undefined = undefined, score: string = '') {
     this.id = id ?? `${Date.now()}${Math.floor(Math.random() * 1000)}`
     this.name = name
     this.score = score
+  }
+
+  changeName(name: string) {
+    this.name = name
+  }
+
+  clearScore() {
+    this.score = ''
   }
 
   static FromJSON(object: any): Player {

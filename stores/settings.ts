@@ -1,29 +1,46 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { ref } from 'vue'
 import Player from '~/models/Player'
 import type Room from '~/models/Room'
 
 export const useSettingsStore = defineStore('settings', () => {
-  const userName = ref<string | undefined>(undefined)
-  const player = ref<Player | undefined>(undefined)
-  const room = ref<Room | undefined>(undefined)
+  const _userName = ref<string | undefined>(undefined)
+  const _player = ref<Player | undefined>(undefined)
+  const _room = ref<Room | undefined>(undefined)
+
+  const userName = computed(() => _userName)
+  const room = computed(() => _room)
 
   function setUserName(name: string) {
-    userName.value = name
-    player.value = new Player(name)
-    room.value?.addPlayer(player.value)
+    _userName.value = name
+    _player.value = new Player(name)
+    _room.value?.addPlayer(_player.value)
+  }
+
+  function submitScore(score: string) {
+    if (!_player.value)
+      return
+    _player.value.score = score
+    _room.value?.updatePlayer(_player.value)
   }
 
   function setRoom(newRoom: Room) {
-    room.value = newRoom
+    _room.value = newRoom
+  }
+
+  function clearVotes() {
+    _room.value?.players.forEach((p) => {
+      p.clearScore()
+      _room.value?.updatePlayer(p)
+    })
   }
 
   return {
-    room,
     userName,
-    player,
+    room,
     setRoom,
     setUserName,
+    submitScore,
+    clearVotes,
   }
 })
 

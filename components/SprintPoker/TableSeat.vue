@@ -1,24 +1,42 @@
 <script setup lang="ts">
+import { useNuxtApp } from 'nuxt/app'
+import CoffeeIcon from '~icons/ant-design/coffee-outlined'
+import InfinityIcon from '~icons/akar-icons/infinity'
+import QuestionIcon from '~icons/akar-icons/question'
+import type Player from '~/models/Player'
+import { useSettingsStore } from '~/stores/settings'
+import { writeRoom } from '~/composables/firebase'
+const props = withDefaults(defineProps<Props>(), {
+  player: undefined,
+})
+const { $pinia } = useNuxtApp()
+const { room } = useSettingsStore($pinia)
+
 interface Props {
-  name?: string
-  score?: number
-  reverse?: boolean
+  player: Player | undefined
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  name: '',
-  score: undefined,
-})
+const deletePlayer = () => {
+  if (!room || !room.value)
+    return
+
+  room.value?.removePlayer(props.player)
+  writeRoom(room.value)
+}
 </script>
 
 <template>
-  <div class="flex flex-col items-center">
-    <span v-if="reverse">{{ name }}</span>
+  <div v-if="player" class="flex flex-col items-center" @dblclick.stop="deletePlayer">
+    <span>{{ player.name }}</span>
     <div class="w-[60px] h-[60px] bg-gray-200 dark:bg-gray-700 rounded-full flex justify-center items-center">
-      <h4 v-if="score" class="text-3xl dark:text-white">
-        {{ score }}
-      </h4>
+      <div :class="{ 'blur-lg': room.isHidden }">
+        <CoffeeIcon v-if="player.score === 'coffee'" class="text-3xl dark:text-white"></CoffeeIcon>
+        <InfinityIcon v-else-if="player.score === 'infinity'" class="text-3xl dark:text-white"></InfinityIcon>
+        <QuestionIcon v-else-if="player.score === 'unknown'" class="text-3xl dark:text-white"></QuestionIcon>
+        <h4 v-else class="text-3xl dark:text-white">
+          {{ player.score }}
+        </h4>
+      </div>
     </div>
-    <span v-if="!reverse">{{ name }}</span>
   </div>
 </template>
