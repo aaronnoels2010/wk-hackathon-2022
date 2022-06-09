@@ -48,10 +48,12 @@ const handleClick = () => {
 }
 
 const toggleCardsVisibility = () => {
-  if (!room?.value.timerIsStarted) {
+  if (room?.value.timerIsStarted)
+    room?.value.resetTimer()
+  else
     room?.value.toggleHidden()
-    writeRoom(room?.value)
-  }
+
+  writeRoom(room?.value)
 }
 
 const handleNextTick = () => {
@@ -63,6 +65,11 @@ const handleNextTick = () => {
 
 const handleResetTimer = () => {
   room?.value.resetTimer()
+  writeRoom(room?.value)
+}
+
+const handleStartTimer = () => {
+  room?.value.startTimer()
   writeRoom(room?.value)
 }
 
@@ -88,7 +95,7 @@ const incrementTimer = () => {
       </BaseButton>
       <Timer
         class="mx-8" :is-started="room.timerIsStarted" :in-seconds="room.timeInSecondsLeft"
-        @next-tick="handleNextTick" @reset-timer="handleResetTimer"
+        @next-tick="handleNextTick" @reset-timer="handleResetTimer" @start-timer="handleStartTimer"
         @increment="incrementTimer" @decrement="decrementTimer"
       />
       <BaseButton @click.stop="toggleCardsVisibility">
