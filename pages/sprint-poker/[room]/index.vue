@@ -70,15 +70,19 @@ const incrementTimer = () => {
 </script>
 
 <template>
-  <div class="flex flex-col" v-if="room">
+  <div v-if="room" class="flex flex-col">
     <div class="flex flex-col flex-grow justify-center items-center">
       <PokerTable :room="room" />
     </div>
     <div class="flex justify-center items-center">
-      <BaseButton @click.stop="handleClick">Stemmen Resetten</BaseButton>
-      <Timer class="mx-8" :is-started="room.timerIsStarted" :in-seconds="room.timeInSecondsLeft"
-             @next-tick="handleNextTick" @reset-timer="handleResetTimer"
-              @increment="incrementTimer" @decrement="decrementTimer"></Timer>
+      <BaseButton @click.stop="handleClick">
+        Stemmen Resetten
+      </BaseButton>
+      <Timer
+        class="mx-8" :is-started="room.timerIsStarted" :in-seconds="room.timeInSecondsLeft"
+        @next-tick="handleNextTick" @reset-timer="handleResetTimer"
+        @increment="incrementTimer" @decrement="decrementTimer"
+      />
       <BaseButton @click.stop="toggleCardsVisibility">
         <span v-if="room.isHidden">Zichtbaar maken</span>
         <span v-else>Verstoppen</span>

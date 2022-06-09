@@ -9,8 +9,7 @@ import { writeRoom } from '~/composables/firebase'
 const props = withDefaults(defineProps<Props>(), {
   player: undefined,
 })
-const { $pinia } = useNuxtApp()
-const { room } = useSettingsStore($pinia)
+const { room } = useSettingsStore()
 
 interface Props {
   player: Player | undefined

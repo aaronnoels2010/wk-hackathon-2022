@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useNuxtApp } from 'nuxt/app'
 import BaseCard from '../base/BaseCard'
 import CoffeeIcon from '~icons/ant-design/coffee-outlined'
 import InfinityIcon from '~icons/akar-icons/infinity'
@@ -9,8 +8,7 @@ import { writeRoom } from '~/composables/firebase'
 
 const { data } = await useFetch('/api/sprint-poker/points')
 
-const { $pinia } = useNuxtApp()
-const { submitScore, room } = useSettingsStore($pinia)
+const { submitScore, room } = useSettingsStore()
 
 const handleCardClick = (point: string) => {
   submitScore(point)
