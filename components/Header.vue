@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import HeroiconsOutlineHome from '~icons/heroicons-outline/home'
+import { useNuxtApp } from 'nuxt/app'
+import { useSettingsStore } from '~/stores/settings'
+
+const { $pinia } = useNuxtApp()
+const { room } = useSettingsStore($pinia)
+const color = computed(() => useColorMode())
 </script>
 
 <template>
@@ -7,7 +12,9 @@ import HeroiconsOutlineHome from '~icons/heroicons-outline/home'
     <NuxtLink to="/" class="flex items-center">
       <img class="w-10 h-10 inline-block" src="/meerkat.png">
       <h3 class="ml-4 font-bold text-2xl">
-        Witty
+        <span v-if="room">{{ room.name }}</span>
+        <span v-else-if="color.preference === 'dark'">Darky</span>
+        <span v-else>Witty</span>
       </h3>
     </NuxtLink>
     <div class="flex justify-center">

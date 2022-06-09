@@ -7,10 +7,14 @@ export const useSettingsStore = defineStore('settings', () => {
   const _player = ref<Player | undefined>(undefined)
   const _room = ref<Room | undefined>(undefined)
 
+  const player = computed(() => _player)
   const userName = computed(() => _userName)
   const room = computed(() => _room)
 
   function setUserName(name: string) {
+    if (_userName.value)
+      _room.value?.removePlayer(_player?.value)
+
     _userName.value = name
     _player.value = new Player(name)
     _room.value?.addPlayer(_player.value)
@@ -25,6 +29,14 @@ export const useSettingsStore = defineStore('settings', () => {
 
   function setRoom(newRoom: Room) {
     _room.value = newRoom
+    if (_player.value)
+      _room.value.updatePlayer(_player.value)
+  }
+
+  function clearRoom() {
+    if (_player?.value)
+      _player?.value.clearScore()
+    _room.value = undefined
   }
 
   function clearVotes() {
@@ -37,6 +49,8 @@ export const useSettingsStore = defineStore('settings', () => {
   return {
     userName,
     room,
+    player,
+    clearRoom,
     setRoom,
     setUserName,
     submitScore,

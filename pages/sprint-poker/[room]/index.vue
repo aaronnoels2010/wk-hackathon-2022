@@ -1,27 +1,35 @@
-<script setup>
+<script setup lang="ts">
 import { useRoute } from 'nuxt/app'
-import { onMounted } from 'vue'
-import BaseButton from '../../../components/base/BaseButton'
+import { onMounted, onUnmounted } from 'vue'
+import BaseButton from '~/components/base/BaseButton'
 import { getRoom, writeRoom } from '~/composables/firebase'
 import PokerTable from '~/components/SprintPoker/PokerTable'
 import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
-import { useSettingsStore } from '~/stores/settings.ts'
+import { useSettingsStore } from '~/stores/settings'
 import { useModalStore } from '~/stores/modal'
 
 const { $pinia } = useNuxtApp()
 const route = useRoute()
 const { setStateProfileModal } = useModalStore($pinia)
-const { userName, room, setRoom, clearVotes } = useSettingsStore($pinia)
+const { userName, player, room, setRoom, clearVotes, clearRoom } = useSettingsStore($pinia)
 
 const roomId = route.params.room
 
+let unSubscribeFromRoomUpdates = () => {}
 onMounted(() => {
   if (!userName.value)
     setStateProfileModal(true)
 
-  getRoom(roomId, (room) => {
+  unSubscribeFromRoomUpdates = getRoom(roomId, (room) => {
     setRoom(room)
   })
+})
+
+onUnmounted(() => {
+  room?.value.removePlayer(player.value)
+  writeRoom(room?.value)
+  clearRoom()
+  unSubscribeFromRoomUpdates()
 })
 
 const handleClick = () => {

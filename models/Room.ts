@@ -29,6 +29,8 @@ export default class Room {
     const indexOfPlayer = this.players.findIndex(p => p.id === player.id)
     if (indexOfPlayer >= 0)
       this.players[indexOfPlayer] = player
+    else
+      this.players.push(player)
   }
 
   static FromJSON(object: any): Room {
