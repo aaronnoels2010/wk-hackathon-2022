@@ -5,7 +5,7 @@ import { getRoom } from '~/composables/firebase'
 import PokerTable from '~/components/SprintPoker/PokerTable'
 import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
 import { useSprintPokerRoom } from '~/composables/sprint-poker'
-import { useSettingsStore } from '~/stores/settings'
+import { useSettingsStore } from '~/stores/settings.ts'
 import { useModalStore } from '~/stores/modal'
 
 const { $pinia } = useNuxtApp()
