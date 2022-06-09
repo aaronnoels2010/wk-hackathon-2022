@@ -33,13 +33,17 @@ onUnmounted(() => {
 })
 
 const handleClick = () => {
-  clearVotes()
-  writeRoom(room?.value)
+  if (!room?.value.timerIsStarted) {
+    clearVotes()
+    writeRoom(room?.value)
+  }
 }
 
 const toggleCardsVisibility = () => {
-  room?.value.toggleHidden()
-  writeRoom(room?.value)
+  if (!room?.value.timerIsStarted) {
+    room?.value.toggleHidden()
+    writeRoom(room?.value)
+  }
 }
 
 const handleNextTick = () => {
