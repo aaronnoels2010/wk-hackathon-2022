@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'nuxt/app'
-import { writeRoom } from '~/composables/firebase'
+//import { writeRoom } from '~/composables/firebase'
 import { useSettingsStore } from '~/stores/settings'
 import Room from '~/models/Room'
 
@@ -8,9 +8,9 @@ const router = useRouter()
 const { setRoom } = useSettingsStore()
 
 const enterTeamChannel = (roomName) => {
-  const newRoom = new Room(roomName)
-  setRoom(newRoom)
-  writeRoom(newRoom).then(() => router.push(`/sprint-poker/${newRoom.id}`))
+  // const newRoom = new Room(roomName)
+  // setRoom(newRoom)
+  // writeRoom(newRoom).then(() => router.push(`/sprint-poker/${newRoom.id}`))
 }
 </script>
 
