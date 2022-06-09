@@ -28,6 +28,9 @@ export const useSettingsStore = defineStore('settings', () => {
   }
 
   function setRoom(newRoom: Room) {
+    if (_room?.value && _room?.value.timerIsStarted && _room.value.timeInSecondsLeft) {
+      newRoom.timeInSecondsLeft = newRoom.timeInSecondsLeft <= _room?.value.timeInSecondsLeft ? newRoom.timeInSecondsLeft : _room?.value.timeInSecondsLeft
+    }
     _room.value = newRoom
     if (_player.value)
       _room.value.updatePlayer(_player.value)

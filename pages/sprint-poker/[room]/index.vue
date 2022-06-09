@@ -2,16 +2,16 @@
 import { useRoute } from 'nuxt/app'
 import { onMounted, onUnmounted } from 'vue'
 import BaseButton from '~/components/base/BaseButton'
+import Timer from '~/components/Timer.vue'
 import { getRoom, writeRoom } from '~/composables/firebase'
 import PokerTable from '~/components/SprintPoker/PokerTable'
 import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
 import { useSettingsStore } from '~/stores/settings'
 import { useModalStore } from '~/stores/modal'
 
-const { $pinia } = useNuxtApp()
 const route = useRoute()
-const { setStateProfileModal } = useModalStore($pinia)
-const { userName, player, room, setRoom, clearVotes, clearRoom } = useSettingsStore($pinia)
+const { setStateProfileModal } = useModalStore()
+const { userName, player, room, setRoom, clearVotes, clearRoom } = useSettingsStore()
 
 const roomId = route.params.room
 
@@ -41,6 +41,28 @@ const toggleCardsVisibility = () => {
   room?.value.toggleHidden()
   writeRoom(room?.value)
 }
+
+const handleNextTick = () => {
+  const wasAlreadyStarted = room?.value.timerIsStarted
+  room?.value.nextTick()
+  if (!wasAlreadyStarted || room?.value.timeInSecondsLeft % 5 === 0)
+    writeRoom(room?.value)
+}
+
+const handleResetTimer = () => {
+  room?.value.resetTimer()
+  writeRoom(room?.value)
+}
+
+const decrementTimer = () => {
+  room?.value.decrementTimer()
+  writeRoom(room?.value)
+}
+
+const incrementTimer = () => {
+  room?.value.incrementTimer()
+  writeRoom(room?.value)
+}
 </script>
 
 <template>
@@ -50,7 +72,10 @@ const toggleCardsVisibility = () => {
     </div>
     <div class="flex justify-center items-center">
       <BaseButton @click.stop="handleClick">Stemmen Resetten</BaseButton>
-      <BaseButton class="ml-4" @click.stop="toggleCardsVisibility">
+      <Timer class="mx-8" :is-started="room.timerIsStarted" :in-seconds="room.timeInSecondsLeft"
+             @next-tick="handleNextTick" @reset-timer="handleResetTimer"
+              @increment="incrementTimer" @decrement="decrementTimer"></Timer>
+      <BaseButton @click.stop="toggleCardsVisibility">
         <span v-if="room.isHidden">Zichtbaar maken</span>
         <span v-else>Verstoppen</span>
       </BaseButton>
