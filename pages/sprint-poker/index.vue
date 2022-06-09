@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'nuxt/app'
-//import { writeRoom } from '~/composables/firebase'
+// import { writeRoom } from '~/composables/firebase'
 import { useSettingsStore } from '~/stores/settings'
 import Room from '~/models/Room'
 
@@ -19,8 +19,8 @@ const enterTeamChannel = (roomName) => {
     <Head>
       <Title>Sprint Poker</Title>
     </Head>
-    <BaseCard>
+    <!-- <BaseCard>
       <InputEntry placeholder="Room name" :handle-submit="enterTeamChannel" />
-    </BaseCard>
+    </BaseCard> -->
   </div>
 </template>
