@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSettingsStore } from '~/stores/settings'
+import { useSettingsStore } from '../stores/settings'
 
 const { room } = useSettingsStore()
 const color = computed(() => useColorMode())

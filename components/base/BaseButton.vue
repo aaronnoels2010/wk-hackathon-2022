@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useColor } from '~/composables/settings'
+import { useColor } from '../../composables/settings'
 interface Props {
   color?: string
 }

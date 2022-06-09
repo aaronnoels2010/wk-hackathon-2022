@@ -35,4 +35,12 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: '',
   },
+  watchers: {
+    chokidar: {
+      awaitWriteFinish: {
+        stabilityTreshold: 100,
+        pollInterval: 10,
+      },
+    },
+  },
 })

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from 'nuxt/app'
 import { writeRoom } from '~/composables/firebase'
 import { useSettingsStore } from '~/stores/settings'
 import Room from '~/models/Room'

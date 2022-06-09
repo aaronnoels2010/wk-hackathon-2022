@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from 'vue-router'
-import { useColor } from '~/composables/settings';
+import { useColor } from '../../composables/settings';
 
 const props = defineProps<{ to: RouteLocationRaw }>()
 const color = useColor()
