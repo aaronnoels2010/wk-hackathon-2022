@@ -15,20 +15,29 @@ const { userName, player, room, setRoom, clearVotes, clearRoom } = useSettingsSt
 const roomId = route.params.room
 
 let unSubscribeFromRoomUpdates = () => {}
+
+const clearPlayerFromRoom = () => {
+  room?.value.removePlayer(player.value)
+  writeRoom(room?.value)
+  clearRoom()
+  unSubscribeFromRoomUpdates()
+}
+
 onMounted(() => {
-  if (!userName.value)
+  if (!userName?.value)
     setStateProfileModal(true)
 
   unSubscribeFromRoomUpdates = getRoom(roomId, (room) => {
     setRoom(room)
   })
+
+  window.addEventListener('beforeunload', () => {
+    clearPlayerFromRoom()
+  })
 })
 
 onUnmounted(() => {
-  room?.value.removePlayer(player.value)
-  writeRoom(room?.value)
-  clearRoom()
-  unSubscribeFromRoomUpdates()
+  clearPlayerFromRoom()
 })
 
 const handleClick = () => {
