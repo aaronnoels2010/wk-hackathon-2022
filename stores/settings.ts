@@ -32,7 +32,11 @@ export const useSettingsStore = defineStore('settings', () => {
       newRoom.timeInSecondsLeft = newRoom.timeInSecondsLeft <= _room?.value.timeInSecondsLeft ? newRoom.timeInSecondsLeft : _room?.value.timeInSecondsLeft
 
     _room.value = newRoom
-    if (_player.value)
+
+    const player = newRoom.players.find(p => p.id === _player.value?.id)
+    if (player)
+      _player.value = player
+    else if (_player.value)
       _room.value.updatePlayer(_player.value)
   }
 

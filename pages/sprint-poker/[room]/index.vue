@@ -69,6 +69,9 @@ const handleResetTimer = () => {
 }
 
 const handleStartTimer = () => {
+  if (!room?.value.timerIsStarted)
+    clearVotes()
+
   room?.value.startTimer()
   writeRoom(room?.value)
 }

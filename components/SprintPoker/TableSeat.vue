@@ -15,7 +15,6 @@ interface Props {
   player: Player | undefined
 }
 
-console.log(props.player)
 const deletePlayer = () => {
   if (!room || !room.value)
     return
