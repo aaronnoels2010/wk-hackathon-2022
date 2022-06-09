@@ -1,12 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { useNuxtApp, useRouter } from 'nuxt/app'
 import { writeRoom } from '~/composables/firebase'
 import { useSettingsStore } from '~/stores/settings.ts'
 import Room from '~/models/Room'
 
 const router = useRouter()
-const { $pinia } = useNuxtApp()
-const { setRoom } = useSettingsStore($pinia)
+const { setRoom } = useSettingsStore()
 
 const enterTeamChannel = (roomName) => {
   const newRoom = new Room(roomName)

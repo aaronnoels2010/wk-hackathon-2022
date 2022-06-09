@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useColor } from '~/composables/settings'
 
 const color = useColor()
