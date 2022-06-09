@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { useCount } from '~~/composables/count'
+import { useCount } from '../composables/count'
 import HeroiconsSolidMinus from '~icons/heroicons-solid/minus'
 import HeroiconsSolidPlus from '~icons/heroicons-solid/plus'
 

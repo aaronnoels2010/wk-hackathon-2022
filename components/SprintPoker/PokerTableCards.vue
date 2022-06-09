@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { useSettingsStore } from '../../stores/settings'
+import { writeRoom } from '../../composables/firebase'
 import BaseCard from '../base/BaseCard'
 import CoffeeIcon from '~icons/ant-design/coffee-outlined'
 import InfinityIcon from '~icons/akar-icons/infinity'
 import QuestionIcon from '~icons/akar-icons/question'
-import { useSettingsStore } from '~/stores/settings'
-import { writeRoom } from '~/composables/firebase'
 
 const { data } = await useFetch('/api/sprint-poker/points')
 

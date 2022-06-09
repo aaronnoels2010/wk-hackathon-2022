@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onUpdated } from 'vue';
-import BaseButton from '~/components/base/BaseButton.vue'
+import { onUpdated } from 'vue'
+import BaseButton from '../components/base/BaseButton.vue'
 import PlusIcon from '~icons/akar-icons/plus'
 import MinusIcon from '~icons/akar-icons/minus'
 const props = withDefaults(defineProps<Props>(), {

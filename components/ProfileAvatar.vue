@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import BaseButton from '~/components/base/BaseButton.vue'
-import BaseInput from '~/components/base/BaseInput.vue'
-import BaseOutlineButton from '~/components/base/BaseOutlineButton.vue'
-import { useModalStore } from '~/stores/modal'
-import { useSettingsStore } from '~/stores/settings'
+import BaseButton from '../components/base/BaseButton.vue'
+import BaseInput from '../components/base/BaseInput.vue'
+import BaseOutlineButton from '../components/base/BaseOutlineButton.vue'
+import { useModalStore } from '../stores/modal'
+import { useSettingsStore } from '../stores/settings'
+import { writeRoom } from '../composables/firebase'
 import AvatarIcon from '~icons/carbon/user-avatar'
-import { writeRoom } from '~/composables/firebase'
 
 const { userName, room, setUserName } = useSettingsStore()
 const { openProfileModal, setStateProfileModal } = useModalStore()
