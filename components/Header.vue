@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useNuxtApp } from 'nuxt/app'
 import { useSettingsStore } from '~/stores/settings'
 
-const { $pinia } = useNuxtApp()
-const { room } = useSettingsStore($pinia)
+const { room } = useSettingsStore()
 const color = computed(() => useColorMode())
 </script>
 
