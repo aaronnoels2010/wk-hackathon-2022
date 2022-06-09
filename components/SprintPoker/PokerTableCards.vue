@@ -7,7 +7,6 @@ import InfinityIcon from '~icons/akar-icons/infinity'
 import QuestionIcon from '~icons/akar-icons/question'
 
 const { data } = await useFetch('/api/sprint-poker/points')
-
 const { submitScore, room } = useSettingsStore()
 
 const handleCardClick = (point: string) => {
