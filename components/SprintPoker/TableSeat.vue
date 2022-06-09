@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useNuxtApp } from 'nuxt/app'
 import CoffeeIcon from '~icons/ant-design/coffee-outlined'
 import InfinityIcon from '~icons/akar-icons/infinity'
 import QuestionIcon from '~icons/akar-icons/question'
