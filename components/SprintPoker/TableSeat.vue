@@ -26,7 +26,7 @@ const deletePlayer = () => {
 
 <template>
   <div v-if="player" class="flex flex-col items-center" @dblclick.stop="deletePlayer">
-    <span>{{ player.name }}</span>
+    <span :class="{ 'text-orange-500': !!player.score }">{{ player.name }}</span>
     <div class="w-[60px] h-[60px] bg-gray-200 dark:bg-gray-700 rounded-full flex justify-center items-center">
       <div :class="{ 'blur-lg': room.isHidden && !(playerStore?.id === player.id) }">
         <CoffeeIcon v-if="player.score === 'coffee'" class="text-3xl dark:text-white" />
