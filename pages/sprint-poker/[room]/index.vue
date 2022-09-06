@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
+import JSConfetti from 'js-confetti'
 import BaseButton from '~/components/base/BaseButton'
 import Timer from '~/components/Timer.vue'
 import { getRoom, writeRoom } from '~/composables/firebase'
@@ -52,6 +53,14 @@ const toggleCardsVisibility = () => {
     room?.value.resetTimer()
   else
     room?.value.toggleHidden()
+
+  if (room?.value.isConsensus && !room?.value.isHidden) {
+    const jsConfetti = new JSConfetti()
+    jsConfetti.addConfetti({
+      confettiRadius: 6,
+      confettiNumber: 300,
+    })
+  }
 
   writeRoom(room?.value)
 }

@@ -9,6 +9,7 @@
   "dependencies": {
     "consola": "2.15.3",
     "firebase": "^9.8.2",
+    "js-confetti": "^0.10.2",
     "pinia": "^2.0.14",
     "vue": "3.2.36",
     "webpack": "4.46.0"
