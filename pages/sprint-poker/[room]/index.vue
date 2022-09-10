@@ -3,7 +3,7 @@ import { onMounted, onUnmounted } from 'vue'
 import JSConfetti from 'js-confetti'
 import BaseButton from '~/components/base/BaseButton'
 import Timer from '~/components/Timer.vue'
-import { getRoom, writeRoom } from '~/composables/firebase'
+import { deleteRoom, getRoom, writeRoom } from '~/composables/firebase'
 import PokerTable from '~/components/SprintPoker/PokerTable'
 import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
 import { useSettingsStore } from '~/stores/settings'
@@ -17,11 +17,13 @@ const roomId = route.params.room
 
 let unSubscribeFromRoomUpdates = () => {}
 
-const clearPlayerFromRoom = () => {
-  room?.value.removePlayer(player.value)
-  writeRoom(room?.value)
+const clearPlayerFromRoom = async () => {
+  const roomCouldBeDeleted = room?.value.removePlayer(player.value)
+  await writeRoom(room?.value)
   clearRoom()
   unSubscribeFromRoomUpdates()
+  if (room?.value && roomCouldBeDeleted)
+    await deleteRoom(room?.value.id)
 }
 
 onMounted(() => {

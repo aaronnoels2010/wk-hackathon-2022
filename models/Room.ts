@@ -19,6 +19,9 @@ export default class Room {
   }
 
   addPlayer(newPlayer: Player) {
+    if (this.players.length === 0)
+      newPlayer.makeOwnerOfBoard()
+
     this.players.push(newPlayer)
   }
 
@@ -26,8 +29,14 @@ export default class Room {
     this.isHidden = !this.isHidden
   }
 
-  removePlayer(player: Player) {
+  removePlayer(player: Player): boolean {
+    if (player.isOwner) {
+      const nonOwnerIndex = this.players.findIndex(p => !p.isOwner)
+      if (nonOwnerIndex !== -1)
+        this.players[nonOwnerIndex].makeOwnerOfBoard()
+    }
     this.players = this.players.filter(p => p.id !== player.id)
+    return !this.players || this.players.length === 0
   }
 
   updatePlayer(player: Player) {
