@@ -103,7 +103,7 @@ const incrementTimer = () => {
     <div class="flex flex-col flex-grow justify-center items-center">
       <PokerTable :room="room" />
     </div>
-    <div class="flex justify-center items-center">
+    <div v-if="player && player.isOwner" class="flex justify-center items-center">
       <BaseButton @click.stop="handleClick">
         Stemmen Resetten
       </BaseButton>
