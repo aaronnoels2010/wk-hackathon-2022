@@ -1,31 +1,38 @@
 import Player from '~/models/Player'
 
 export default class Room {
-  isHidden: boolean
-  timerIsStarted: boolean
-  timeInSecondsLeft: number
   id: string
   name: string
   players: Player[]
+  durationInSeconds: number
+  timerStartTimestamp: number | null
+  isHidden: boolean
+  interruptTimer: boolean
 
-  constructor(name: string, id: string | undefined = undefined, players: Player[] = [],
-    isHidden = false, timerIsStarted = false, timeInSeconds = 30) {
+  constructor(name: string,
+              id: string | undefined = undefined,
+              players: Player[] = [],
+              isHidden = false,
+              durationInSeconds = 30,
+              timerStartTimestamp = null,
+              interruptTimer = false) {
     this.id = id ?? `${Date.now()}${Math.floor(Math.random() * 1000)}`
     this.name = name
     this.players = players ?? []
+    this.durationInSeconds = durationInSeconds
+    this.timerStartTimestamp = timerStartTimestamp
     this.isHidden = isHidden
-    this.timerIsStarted = timerIsStarted
-    this.timeInSecondsLeft = timeInSeconds
+    this.interruptTimer = interruptTimer
   }
 
   addPlayer(newPlayer: Player) {
-    if (this.players.length === 0)
+    if (!this.players || this.players.length === 0)
       newPlayer.makeOwnerOfBoard()
 
     this.players.push(newPlayer)
   }
 
-  toggleHidden() {
+  toggleIsHidden(): void {
     this.isHidden = !this.isHidden
   }
 
@@ -49,29 +56,19 @@ export default class Room {
       this.players.push(player)
   }
 
-  nextTick() {
-    if (this.timeInSecondsLeft > 0) {
-      this.isHidden = true
-      this.timeInSecondsLeft -= 1
-    }
-  }
-
-  decrementTimer() {
-    this.timeInSecondsLeft -= 1
-  }
-
-  incrementTimer() {
-    this.timeInSecondsLeft += 1
-  }
-
   startTimer() {
-    this.timerIsStarted = true
+    this.timerStartTimestamp = Date.now()
+  }
+
+  interruptTheTimer() {
+    this.interruptTimer = true
   }
 
   resetTimer() {
     this.isHidden = false
-    this.timerIsStarted = false
-    this.timeInSecondsLeft = 30
+    this.durationInSeconds = 30
+    this.timerStartTimestamp = null
+    this.interruptTimer = false;
   }
 
   get averageScore(): string {
@@ -90,7 +87,9 @@ export default class Room {
     return new Room(object.name,
       object.id,
       object.players ? object.players.map((p: any) => Player.FromJSON(p)) : [],
-      object.isHidden ?? false, object.timerIsStarted ?? false,
-      object.timeInSecondsLeft ?? 30)
+      object.isHidden ?? false,
+      object.durationInSeconds ?? 30,
+      object.timerStartTimestamp ?? null,
+      object.interruptTimer ?? false)
   }
 }

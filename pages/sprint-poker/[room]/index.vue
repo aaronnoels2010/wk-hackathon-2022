@@ -50,12 +50,7 @@ const handleClick = () => {
   }
 }
 
-const toggleCardsVisibility = () => {
-  if (room?.value.timerIsStarted)
-    room?.value.resetTimer()
-  else
-    room?.value.toggleHidden()
-
+const showConfetti = () => {
   if (room?.value.isConsensus && !room?.value.isHidden) {
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti({
@@ -63,38 +58,45 @@ const toggleCardsVisibility = () => {
       confettiNumber: 300,
     })
   }
-
-  writeRoom(room?.value)
 }
 
-const handleNextTick = () => {
-  const wasAlreadyStarted = room?.value.timerIsStarted
-  room?.value.nextTick()
-  if (!wasAlreadyStarted || room?.value.timeInSecondsLeft % 5 === 0)
-    writeRoom(room?.value)
+const toggleCardsVisibility = () => {
+  room?.value.toggleIsHidden()
+  if (!room?.value.isHidden && room?.value.timerStartTimestamp) {
+    room?.value.interruptTheTimer()
+    return
+  }
+
+  showConfetti()
+  writeRoom(room?.value)
 }
 
 const handleResetTimer = () => {
-  room?.value.resetTimer()
-  writeRoom(room?.value)
+  if (room && room.value && room?.value.timerStartTimestamp) {
+    room.value.isHidden = false
+    room?.value.resetTimer()
+    showConfetti()
+    writeRoom(room?.value)
+  }
 }
 
 const handleStartTimer = () => {
-  if (!room?.value.timerIsStarted)
-    clearVotes()
-
-  room?.value.startTimer()
-  writeRoom(room?.value)
-}
-
-const decrementTimer = () => {
-  room?.value.decrementTimer()
+  if (room && room.value) {
+    room.value.isHidden = true
+    room?.value.startTimer()
+  }
+  clearVotes()
   writeRoom(room?.value)
 }
 
 const incrementTimer = () => {
-  room?.value.incrementTimer()
-  writeRoom(room?.value)
+  if (room && room.value && player?.value.isOwner)
+    room.value.durationInSeconds += 1
+}
+
+const decrementTimer = () => {
+  if (room && room.value && player?.value.isOwner)
+    room.value.durationInSeconds -= 1
 }
 </script>
 
@@ -103,16 +105,16 @@ const incrementTimer = () => {
     <div class="flex flex-col flex-grow justify-center items-center">
       <PokerTable :room="room" />
     </div>
-    <div v-if="player && player.isOwner" class="flex justify-center items-center">
-      <BaseButton @click.stop="handleClick">
+    <div v-if="player" class="flex justify-center items-center">
+      <BaseButton @click.stop="handleClick" v-if="player.isOwner && !room.timerStartTimestamp">
         Stemmen Resetten
       </BaseButton>
       <Timer
-        class="mx-8" :is-started="room.timerIsStarted" :in-seconds="room.timeInSecondsLeft"
-        @next-tick="handleNextTick" @reset-timer="handleResetTimer" @start-timer="handleStartTimer"
+        class="mx-8" :duration-in-seconds="room.durationInSeconds" :timer-start-timestamp="room.timerStartTimestamp" :is-owner="player.isOwner" :interrupt="room.interruptTimer"
         @increment="incrementTimer" @decrement="decrementTimer"
+        @reset-timer="handleResetTimer" @start-timer="handleStartTimer"
       />
-      <BaseButton @click.stop="toggleCardsVisibility">
+      <BaseButton @click.stop="toggleCardsVisibility" v-if="player.isOwner">
         <span v-if="room.isHidden">Zichtbaar maken</span>
         <span v-else>Verstoppen</span>
       </BaseButton>

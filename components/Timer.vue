@@ -1,86 +1,92 @@
 <script setup lang="ts">
-import { onUpdated } from 'vue'
+import { computed, onMounted, onUpdated, ref } from 'vue'
 import BaseButton from '../components/base/BaseButton.vue'
+import { useSettingsStore } from '~/stores/settings'
 import PlusIcon from '~icons/akar-icons/plus'
 import MinusIcon from '~icons/akar-icons/minus'
+
+const emit = defineEmits(['resetTimer', 'startTimer', 'increment', 'decrement'])
 const props = withDefaults(defineProps<Props>(), {
-  isStarted: false,
-  inSeconds: 30,
+  durationInSeconds: 30,
+  isOwner: false,
+  interrupt: false,
+  timerStartTimestamp: undefined,
 })
-
-const emit = defineEmits(['nextTick', 'resetTimer', 'startTimer', 'increment', 'decrement'])
-
 interface Props {
-  isStarted: boolean
-  inSeconds: number
+  durationInSeconds: number
+  timerStartTimestamp: number | undefined
+  isOwner: boolean
+  interrupt: boolean
 }
 
 const color = useColor()
+const _localTime = ref(0)
+const localTime = computed(() => _localTime.value)
+const _timer = ref(0)
+const timer = computed(() => _timer.value)
+const { player } = useSettingsStore()
 
 const startTimer = () => {
-  if (props.isStarted)
+  if (props.timerStartTimestamp)
     return
-
-  emit('startTimer')
-
-  const countDownInterval = setInterval(() => {
-    if (!props.isStarted) {
-      clearInterval(countDownInterval)
-      emit('resetTimer')
-      return
-    }
-
-    emit('nextTick', props.inSeconds)
-    if (props.inSeconds === 0) {
-      clearInterval(countDownInterval)
-      emit('resetTimer')
-    }
-  }, 1000)
+  if (player?.value.isOwner)
+    emit('startTimer')
 }
 
-let incrementInterval: any
-let decrementInterval: any
-const incrementMouseDown = () => {
-  if (props.isStarted)
-    return
-  emit('increment')
-  incrementInterval = setInterval(() => {
+const resetTimerLocal = (isOwner: boolean, interval: NodeJS.Timer) => {
+  clearInterval(interval)
+  if (isOwner)
+    emit('resetTimer')
+}
+
+const setCountdown = () => {
+  if (props.timerStartTimestamp) {
+    const countDownInterval = setInterval(() => {
+      const newTime = Math.round(((props.timerStartTimestamp + (props.durationInSeconds * 1000)) - Date.now()) / 1000)
+      _timer.value = newTime
+      if (_timer.value <= 0 || props.interrupt)
+        resetTimerLocal(player?.value.isOwner, countDownInterval)
+    }, 300)
+  }
+}
+
+const increment = () => {
+  if (!props.timerStartTimestamp)
     emit('increment')
-  }, 100)
-}
-const incrementMouseUp = () => {
-  if (props.isStarted || !incrementInterval)
-    return
-  clearInterval(incrementInterval)
 }
 
-const decrementMouseDown = () => {
-  if (props.isStarted)
-    return
-  emit('decrement')
-  decrementInterval = setInterval(() => {
+const decrement = () => {
+  if (!props.timerStartTimestamp)
     emit('decrement')
-  }, 100)
 }
-const decrementMouseUp = () => {
-  if (props.isStarted)
-    return
-  clearInterval(decrementInterval)
-}
+
+onMounted(() => {
+  _localTime.value = props.durationInSeconds
+  if (!props.timerStartTimestamp)
+    _timer.value = props.durationInSeconds
+  setCountdown()
+})
+
+onUpdated(() => {
+  _localTime.value = props.durationInSeconds
+  if (!props.timerStartTimestamp)
+    _timer.value = props.durationInSeconds
+  setCountdown()
+})
 </script>
 
 <template>
   <div class="flex flex-col items-center">
     <div class="flex items items-center">
-      <MinusIcon :class="`mr-4 text-${color}-600`" @mousedown.stop="decrementMouseDown" @mouseup.stop="decrementMouseUp" />
-      <div class="flex items-end" :class="{ 'animate-pulse': inSeconds < 15 && inSeconds !== 0 && isStarted }">
-        <span :class="`text-4xl text-${color}-600`">{{ Math.trunc(inSeconds / 60).toLocaleString('nl-BE', { minimumIntegerDigits: 2 }) }}</span>
-        <span class="text-2xl text-slate-600 dark:text-slate-300">:{{ (inSeconds % 60).toLocaleString('nl-BE', { minimumIntegerDigits: 2 }) }}</span>
+      <MinusIcon v-if="isOwner && !props.timerStartTimestamp" :class="`mr-4 text-${color}-600`" @click="decrement" />
+      <div v-if="isOwner || props.timerStartTimestamp" class="flex items-end" :class="{ 'animate-pulse': timer < 15 && timer !== 0 && timerStartTimestamp }">
+        <span :class="`text-4xl text-${color}-600`">{{ Math.trunc((props.timerStartTimestamp ? timer : localTime) / 60).toLocaleString('nl-BE', { minimumIntegerDigits: 2 }) }}</span>
+        <span class="text-2xl text-slate-600 dark:text-slate-300">:{{ ((props.timerStartTimestamp ? timer : localTime) % 60).toLocaleString('nl-BE', { minimumIntegerDigits: 2 }) }}</span>
       </div>
-      <PlusIcon :class="`ml-4 text-${color}-600`" @mousedown.stop="incrementMouseDown" @mouseup.stop="incrementMouseUp" />
+      <PlusIcon v-if="isOwner && !props.timerStartTimestamp" :class="`ml-4 text-${color}-600`" @click="increment" />
     </div>
     <div class="mt-2">
-      <BaseButton @mousedown.stop="startTimer">
+      <BaseButton v-if="isOwner && !props.timerStartTimestamp" @mousedown.stop="startTimer">
         Start
       </BaseButton>
     </div>
