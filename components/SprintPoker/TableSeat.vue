@@ -40,4 +40,7 @@ const deletePlayer = () => {
       </div>
     </div>
   </div>
+  <div v-else class="w-[60px] h-[60px] invisible">
+    <span>Coming soon ...</span>
+  </div>
 </template>

@@ -106,7 +106,7 @@ const decrementTimer = () => {
       <PokerTable :room="room" />
     </div>
     <div v-if="player" class="flex justify-center items-center">
-      <BaseButton @click.stop="handleClick" v-if="player.isOwner && !room.timerStartTimestamp">
+      <BaseButton v-if="player.isOwner" :class="{ invisible: room.timerStartTimestamp }" @click.stop="handleClick">
         Stemmen Resetten
       </BaseButton>
       <Timer
@@ -114,7 +114,7 @@ const decrementTimer = () => {
         @increment="incrementTimer" @decrement="decrementTimer"
         @reset-timer="handleResetTimer" @start-timer="handleStartTimer"
       />
-      <BaseButton @click.stop="toggleCardsVisibility" v-if="player.isOwner">
+      <BaseButton v-if="player.isOwner" @click.stop="toggleCardsVisibility">
         <span v-if="room.isHidden">Zichtbaar maken</span>
         <span v-else>Verstoppen</span>
       </BaseButton>
