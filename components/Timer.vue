@@ -5,13 +5,13 @@ import { useSettingsStore } from '~/stores/settings'
 import PlusIcon from '~icons/akar-icons/plus'
 import MinusIcon from '~icons/akar-icons/minus'
 
-const emit = defineEmits(['resetTimer', 'startTimer', 'increment', 'decrement'])
 const props = withDefaults(defineProps<Props>(), {
   durationInSeconds: 30,
   isOwner: false,
   interrupt: false,
   timerStartTimestamp: undefined,
 })
+const emit = defineEmits(['resetTimer', 'startTimer', 'increment', 'decrement'])
 interface Props {
   durationInSeconds: number
   timerStartTimestamp: number | undefined
@@ -25,6 +25,7 @@ const localTime = computed(() => _localTime.value)
 const _timer = ref(0)
 const timer = computed(() => _timer.value)
 const { player } = useSettingsStore()
+let countDownInterval: NodeJS.Timer | undefined
 
 const startTimer = () => {
   if (props.timerStartTimestamp)
@@ -33,19 +34,16 @@ const startTimer = () => {
     emit('startTimer')
 }
 
-const resetTimerLocal = (isOwner: boolean, interval: NodeJS.Timer) => {
-  clearInterval(interval)
-  if (isOwner)
-    emit('resetTimer')
-}
-
 const setCountdown = () => {
-  if (props.timerStartTimestamp) {
-    const countDownInterval = setInterval(() => {
+  if (props.timerStartTimestamp && !countDownInterval) {
+    countDownInterval = setInterval(() => {
       const newTime = Math.round(((props.timerStartTimestamp + (props.durationInSeconds * 1000)) - Date.now()) / 1000)
       _timer.value = newTime
-      if (_timer.value <= 0 || props.interrupt)
-        resetTimerLocal(player?.value.isOwner, countDownInterval)
+      if (_timer.value <= 0 || props.interrupt) {
+        clearInterval(countDownInterval)
+        countDownInterval = undefined
+        emit('resetTimer')
+      }
     }, 300)
   }
 }

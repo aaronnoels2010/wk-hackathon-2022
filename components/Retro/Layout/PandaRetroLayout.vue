@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = useFetch('/api/retro/boards')
+const { data } = await useFetch('/api/retro/boards')
 </script>
 
 <template>

@@ -53,7 +53,7 @@ export default class Room {
     if (indexOfPlayer >= 0)
       this.players[indexOfPlayer] = player
     else
-      this.players.push(player)
+      this.addPlayer(player)
   }
 
   startTimer() {

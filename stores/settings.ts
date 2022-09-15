@@ -17,7 +17,9 @@ export const useSettingsStore = defineStore('settings', () => {
 
     _userName.value = name
     _player.value = new Player(name)
-    _room.value?.addPlayer(_player.value)
+
+    if (room.value)
+      _room.value?.addPlayer(_player.value)
   }
 
   function submitScore(score: string) {

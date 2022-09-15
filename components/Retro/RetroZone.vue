@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { Ref } from 'vue';
+import InputModal from '~/components/Modal/InputModal.vue';
 import RetroCard from './RetroCard.vue'
-import { useModalStore } from '~/stores/modal'
 import BaseButton from '~/components/base/BaseButton.vue'
 import PlusIcon from '~icons/akar-icons/plus'
 
@@ -15,13 +16,14 @@ interface Props {
   zoneTitle?: string
   showModal?: boolean
 }
-const { openAddCardModal, setStateAddCardModal } = useModalStore()
+
+const openAddRetroMessageModal: Ref<boolean> = ref(false)
 
 const updateOpenAddCardDialog = (state: boolean) => {
-  setStateAddCardModal(state)
+  openAddRetroMessageModal.value = state
 }
 
-const handleSave = () => {
+const handleSave = (message: string) => {
   updateOpenAddCardDialog(false)
 }
 </script>
@@ -42,32 +44,6 @@ const handleSave = () => {
         <PlusIcon />
       </BaseButton>
     </div>
-
-    <div v-if="openAddCardModal" class="relative z-50">
-      <div class="fixed inset-0 bg-black/30" aria-hidden="true" />
-      <div class="fixed inset-0 flex items-center justify-center p-4">
-        <div class="p-4 w-full max-w-sm rounded-2xl bg-white dark:bg-gray-800">
-          <h3 class="text-3xl mb-4 text-center text-slate-600 dark:text-slate-300">
-            Message
-          </h3>
-
-          <textarea
-            id="message"
-            rows="4"
-            class="block p-3 w-full text-sm text-gray-900 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-            placeholder="Your message..."
-          />
-
-          <div class="flex justify-end mt-4">
-            <BaseOutlineButton color="red" class="disabled:cursor-not-allowed mr-4" @click="updateOpenAddCardDialog(false)">
-              Cancel
-            </BaseOutlineButton>
-            <BaseButton color="green" class="disabled:cursor-not-allowed">
-              Add
-            </BaseButton>
-          </div>
-        </div>
-      </div>
-    </div>
+    <InputModal :is-open="openAddRetroMessageModal" title="Retro" placeholder="Message here ..." @close="() => updateOpenAddCardDialog(false)" @save="handleSave" />
   </div>
 </template>

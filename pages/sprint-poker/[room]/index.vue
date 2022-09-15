@@ -72,12 +72,12 @@ const toggleCardsVisibility = () => {
 }
 
 const handleResetTimer = () => {
-  if (room && room.value && room?.value.timerStartTimestamp) {
+  if (room && room.value && room?.value.timerStartTimestamp && player?.value.isOwner) {
     room.value.isHidden = false
     room?.value.resetTimer()
-    showConfetti()
     writeRoom(room?.value)
   }
+  showConfetti()
 }
 
 const handleStartTimer = () => {
