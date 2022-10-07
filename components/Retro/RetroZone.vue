@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { Ref } from 'vue';
-import InputModal from '~/components/Modal/InputModal.vue';
-import RetroCard from './RetroCard.vue'
+import type { Ref } from 'vue'
+import Message from '~/models/Message'
+import InputModal from '~/components/Modal/InputModal.vue'
 import BaseButton from '~/components/base/BaseButton.vue'
 import PlusIcon from '~icons/akar-icons/plus'
+import retroService from '~/services/retro-service'
 
 const props = withDefaults(defineProps<Props>(), {
-  messages: new Array<string>(),
+  messages: () => [],
   zoneTitle: '',
   showModal: false,
+  index: 0,
 })
 
 interface Props {
-  messages: string[]
+  messages: Message[]
   zoneTitle?: string
   showModal?: boolean
+  index: number
 }
 
 const openAddRetroMessageModal: Ref<boolean> = ref(false)
@@ -24,6 +27,7 @@ const updateOpenAddCardDialog = (state: boolean) => {
 }
 
 const handleSave = (message: string) => {
+  retroService.addMessage(props.index, new Message(message))
   updateOpenAddCardDialog(false)
 }
 </script>
@@ -35,7 +39,7 @@ const handleSave = (message: string) => {
     </h3>
     <div class="flex flex-wrap flex-shrink items-start">
       <div v-for="(message, index) of messages" :key="index">
-        <RetroCard :retro-text="message" />
+        <RetroCard :retro-text="message.text" />
       </div>
     </div>
 

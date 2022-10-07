@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFetch, useRouter } from 'nuxt/app'
 import BaseCard from '~/components/base/BaseCard.vue'
 
 const { data } = useFetch('/api/retro/layouts')
