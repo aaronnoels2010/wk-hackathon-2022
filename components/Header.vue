@@ -16,6 +16,7 @@ const color = computed(() => useColorMode())
     </NuxtLink>
     <div class="flex justify-center">
       <DarkToggle />
+      <SettingsButton class="ml-2" />
       <ProfileAvatar class="ml-2" />
     </div>
   </div>

@@ -1,5 +1,6 @@
 import type { Unsubscribe } from 'firebase/database'
 import { onValue, ref, remove, set } from 'firebase/database'
+import { useRuntimeConfig } from 'nuxt/app'
 import Room from '~/models/Room'
 import Firebase from '~/services/firebase-service'
 
