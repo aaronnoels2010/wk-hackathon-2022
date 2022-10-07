@@ -4,7 +4,7 @@ import { useModalStore } from '~/stores/modal'
 import { useSettingsStore } from '~/stores/settings'
 
 import InputModal from '~/components/Modal/InputModal.vue'
-import AvatarIcon from '~icons/carbon/user-avatar'
+import HeroiconsOutlineUser from '~icons/heroicons-outline/user'
 
 const { userName, room, setUserName } = useSettingsStore()
 const { openProfileModal, setStateProfileModal } = useModalStore()
@@ -26,8 +26,14 @@ const handleSave = (value: string) => {
 
 <template>
   <div class="flex justify-center items-center">
-    <AvatarIcon v-if="!userName" class="w-6 h-6 text-gray-600 dark:text-gray-300" @click="() => setStateProfileModal(true)" />
-    <span v-if="userName" class="text-gray-600 dark:text-gray-300" @click="() => setStateProfileModal(true)">Hey, {{ userName }}</span>
+    <button
+      v-if="!userName"
+      class="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200"
+      @click="() => setStateProfileModal(true)"
+    >
+      <HeroiconsOutlineUser class="w-6 h-6" />
+    </button>
+    <span v-if="userName" class="text-gray-600 dark:text-gray-300">Hey, {{ userName }}</span>
     <InputModal :is-open="openProfileModal" title="Username" placeholder="Enter username here ..." @close="handleClose" @save="handleSave" />
   </div>
 </template>
