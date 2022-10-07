@@ -19,7 +19,7 @@ const color = useColor()
 
 <template>
   <div class="flex flex-wrap p-4">
-    <BaseCard v-for="(point, index) of data.points" :key="index" class="mr-4 mt-4 h-24 w-16 hover:animate-bounce" @click.close="() => handleCardClick(point)">
+    <BaseCard v-for="(point, index) of data.points" :key="index" class="m-2 h-24 w-16 hover:animate-bounce" @click.close="() => handleCardClick(point)">
       <CoffeeIcon v-if="point === 'coffee'" :class="`w-6 h-6 text-${color}-500`" />
       <InfinityIcon v-else-if="point === 'infinity'" :class="`w-6 h-6 text-${color}-500`" />
       <QuestionIcon v-else-if="point === 'unknown'" :class="`w-6 h-6 text-${color}-500`" />

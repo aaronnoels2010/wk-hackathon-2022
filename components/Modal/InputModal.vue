@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 const message = ref('')
 
-const addMessage = () => {
+const saveInput = () => {
   emit('save', message.value)
   message.value = ''
 }
@@ -35,10 +35,12 @@ const addMessage = () => {
 
           <textarea
             id="message"
+            v-model="message"
             rows="4"
             class="m-4 text-center text-2xl border-0 bg-transparent focus:ring-0"
-            v-model="message"
+            style="resize: none"
             :placeholder="placeholder"
+            @keyup.enter="saveInput"
           />
         </div>
       </div>
@@ -46,7 +48,7 @@ const addMessage = () => {
         <BaseOutlineButton color="red" class="disabled:cursor-not-allowed mr-4" @click="emit('close')">
           Cancel
         </BaseOutlineButton>
-        <BaseButton color="green" class="disabled:cursor-not-allowed" @click="addMessage">
+        <BaseButton color="green" class="disabled:cursor-not-allowed" @click="saveInput">
           Save
         </BaseButton>
       </div>

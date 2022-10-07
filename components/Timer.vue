@@ -34,6 +34,10 @@ const startTimer = () => {
     emit('startTimer')
 }
 
+const stopTimer = () => {
+  emit('resetTimer')
+}
+
 const setCountdown = () => {
   if (props.timerStartTimestamp && !countDownInterval) {
     countDownInterval = setInterval(() => {
@@ -75,7 +79,7 @@ onUpdated(() => {
 
 <template>
   <div class="flex flex-col items-center">
-    <div class="flex items items-center">
+    <div class="flex items items-center mb-2">
       <MinusIcon v-if="isOwner && !props.timerStartTimestamp" :class="`mr-4 text-${color}-600`" @click="decrement" />
       <div v-if="isOwner || props.timerStartTimestamp" class="flex items-end" :class="{ 'animate-pulse': timer < 15 && timer !== 0 && timerStartTimestamp }">
         <span :class="`text-4xl text-${color}-600`">{{ Math.trunc((props.timerStartTimestamp ? timer : localTime) / 60).toLocaleString('nl-BE', { minimumIntegerDigits: 2 }) }}</span>
@@ -83,9 +87,12 @@ onUpdated(() => {
       </div>
       <PlusIcon v-if="isOwner && !props.timerStartTimestamp" :class="`ml-4 text-${color}-600`" @click="increment" />
     </div>
-    <div class="mt-2">
-      <BaseButton v-if="isOwner && !props.timerStartTimestamp" @mousedown.stop="startTimer">
+    <div v-if="isOwner">
+      <BaseButton v-if="!props.timerStartTimestamp" @mousedown.stop="startTimer">
         Start
+      </BaseButton>
+      <BaseButton v-else @mousedown.stop="stopTimer">
+        Stop
       </BaseButton>
     </div>
   </div>

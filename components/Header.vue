@@ -10,8 +10,8 @@ const color = computed(() => useColorMode())
     <NuxtLink to="/" class="flex items-center">
       <img class="w-8 h-8 inline-block" src="/majestic-biscuit.svg">
       <h3 class="ml-4 font-bold text-2xl">
-        <span v-if="room">{{ room.name }}</span>
-        <span v-else>Majestic Biscuit</span>
+        <span>Majestic Biscuit</span>
+        <span v-if="room">: {{ room.name }}</span>
       </h3>
     </NuxtLink>
     <div class="flex justify-center">
