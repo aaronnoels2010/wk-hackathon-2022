@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 import JSConfetti from 'js-confetti'
-import BaseButton from '~/components/base/BaseButton'
-import Timer from '~/components/Timer.vue'
 import { deleteRoom, getRoom, writeRoom } from '~/composables/firebase'
-import PokerTable from '~/components/SprintPoker/PokerTable'
-import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
 import { useSettingsStore } from '~/stores/settings'
 import { useModalStore } from '~/stores/modal'
+
+import BaseButton from '~/components/base/BaseButton'
+import Timer from '~/components/SprintPoker/Timer.vue'
+import PokerTable from '~/components/SprintPoker/PokerTable'
+import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
 
 const route = useRoute()
 const { setStateProfileModal } = useModalStore()

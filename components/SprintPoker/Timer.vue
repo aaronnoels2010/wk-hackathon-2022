@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUpdated, ref } from 'vue'
-import BaseButton from '../components/base/BaseButton.vue'
+import BaseButton from '~/components/base/BaseButton.vue'
 import { useSettingsStore } from '~/stores/settings'
 import PlusIcon from '~icons/akar-icons/plus'
 import MinusIcon from '~icons/akar-icons/minus'
