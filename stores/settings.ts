@@ -12,7 +12,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const room = computed(() => _room)
 
   function setUserName(name: string) {
-    if (_userName.value)
+    if (_userName.value && _player?.value)
       _room.value?.removePlayer(_player?.value)
 
     _userName.value = name
