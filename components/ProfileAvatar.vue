@@ -7,10 +7,11 @@ import InputModal from '~/components/Modal/InputModal.vue'
 import HeroiconsOutlineUser from '~icons/heroicons-outline/user'
 
 const { userName, room, setUserName } = useSettingsStore()
-const { openProfileModal, setStateProfileModal } = useModalStore()
+const { openProfileModal, callbackOnCancel, setStateProfileModal } = useModalStore()
 
 const handleClose = () => {
-  setStateProfileModal(false)
+  setStateProfileModal(false, callbackOnCancel?.callback)
+  callbackOnCancel?.callback()
 }
 
 const handleSave = (value: string) => {

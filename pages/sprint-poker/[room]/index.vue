@@ -11,6 +11,7 @@ import PokerTable from '~/components/SprintPoker/PokerTable'
 import PokerTableCards from '~/components/SprintPoker/PokerTableCards'
 
 const route = useRoute()
+const router = useRouter()
 const { setStateProfileModal } = useModalStore()
 const { userName, player, room, setRoom, clearVotes, clearRoom } = useSettingsStore()
 
@@ -27,9 +28,14 @@ const clearPlayerFromRoom = async () => {
     await deleteRoom(room?.value.id)
 }
 
+const callbackOnEmptyUserName = () => {
+  if (!userName.value)
+    router.push('/')
+}
+
 onMounted(() => {
   if (!userName?.value)
-    setStateProfileModal(true)
+    setStateProfileModal(true, callbackOnEmptyUserName)
 
   unSubscribeFromRoomUpdates = getRoom(roomId, (room) => {
     setRoom(room)
