@@ -1,15 +1,27 @@
 <script setup lang="ts">
-import InputModal from '~/components/Modal/InputModal.vue';
 import { writeRoom } from '~/composables/firebase'
+import { useModalStore } from '~/stores/modal'
 import { useSettingsStore } from '~/stores/settings'
 import Room from '~/models/Room'
 
+import InputModal from '~/components/Modal/InputModal.vue'
+
 const router = useRouter()
 const { setRoom } = useSettingsStore()
+const { openRoomModal, setStateRoomModal } = useModalStore()
+
+setStateRoomModal(true)
+
+const handleClose = () => {
+  setStateRoomModal(false)
+  router.push('../')
+}
 
 const enterTeamChannel = (roomName) => {
-  if(!roomName)
+  if (!roomName)
     return
+
+  setStateRoomModal(false)
 
   const newRoom = new Room(roomName)
   setRoom(newRoom)
@@ -20,8 +32,8 @@ const enterTeamChannel = (roomName) => {
 <template>
   <div>
     <Head>
-      <Title>Sprint Poker</Title>
+      <Title>Sprint Poker | Majestic Biscuit</Title>
     </Head>
-    <InputModal :is-open="true" title="Room name" placeholder="Enter room name..." @close="() => undefined" @save="enterTeamChannel" />
+    <InputModal :is-open="openRoomModal" title="Room name" placeholder="Enter room name..." @close="handleClose" @save="enterTeamChannel" />
   </div>
 </template>
